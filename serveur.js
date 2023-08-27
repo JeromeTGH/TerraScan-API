@@ -1,9 +1,12 @@
 //process.env.NODE_ENV = 'production';
+require('dotenv').config({ path: './config/.env' });
 
-const express = require('express')
-const bodyParser = require('body-parser')
+const express = require('express');
+const bodyParser = require('body-parser');
+const routesRacine = require('./routes/routes.racine')
+// const routesUtilisateur = require('./routes/routes.utilisateur')
+// const routesListes = require('./routes/routes.listes')
 
-require('dotenv').config({ path: './config/.env' })
 
 // Message d'invite
 console.log("");
@@ -19,9 +22,9 @@ const app = express()
 app.use(bodyParser.json())
 
 // Routes
-app.all('*', (req, res) => {
-    res.status(200).json(JSON.parse('{"test": "ok !"}'))
-})
+app.use('/', routesRacine)
+// app.use('/api/utilisateurs', routesUtilisateur)
+// app.use('/api/listes', routesListes)
 
 // Serveur
 app.listen(process.env.PORT, () => {
