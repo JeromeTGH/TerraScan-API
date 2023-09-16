@@ -1,11 +1,16 @@
-//process.env.NODE_ENV = 'production';
-require('dotenv').config({ path: './config/.env' });
+const { log } = require('./utils/log')
 
-const express = require('express');
-const bodyParser = require('body-parser');
+//process.env.NODE_ENV = 'production';
+require('dotenv').config({ path: './config/.env' })
+
+const express = require('express')
+const bodyParser = require('body-parser')
 const routesRacine = require('./routes/routes.racine')
 // const routesUtilisateur = require('./routes/routes.utilisateur')
 // const routesListes = require('./routes/routes.listes')
+
+
+const { taches } = require('./utils/taches');
 
 
 // Message d'invite
@@ -28,5 +33,7 @@ app.use('/', routesRacine)
 
 // Serveur
 app.listen(process.env.PORT, () => {
-    console.log(`Serveur NodeJS démarré (port ${process.env.PORT})`)
+    log(`Serveur NodeJS démarré (port ${process.env.PORT})`)
+
+    taches();
 })
