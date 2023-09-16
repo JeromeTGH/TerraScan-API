@@ -6,7 +6,7 @@ module.exports.createTable = async () => {
 
 //datetimeUTC DATETIME,
 
-    const rqt = `CREATE TABLE IF NOT EXISTS tblBurns (
+    const rqt = `CREATE TABLE IF NOT EXISTS tblTotalSupplies (
                     enregNumber INT AUTO_INCREMENT PRIMARY KEY,
                     code VARCHAR(12),
                     datetimeUTC DATETIME,
@@ -16,17 +16,15 @@ module.exports.createTable = async () => {
                     bW1 BOOLEAN NOT NULL DEFAULT FALSE,
                     bM1 BOOLEAN NOT NULL DEFAULT FALSE,
                     bY1 BOOLEAN NOT NULL DEFAULT FALSE,
-                    debutUlunaAmount BIGINT,
-                    debutUusdAmount BIGINT,
-                    finUlunaAmount BIGINT,
-                    finUusdAmount BIGINT
+                    ulunaAmount BIGINT,
+                    uusdAmount BIGINT
                 );`
     // code example : 202309161702 (en fait : YYYYMMDDHHMM)
     // datetimeUTC example : 2023-09-16T17:02:33.169Z
 
     try {
         const result = await query(rqt);
-        log("Create table 'tblBurns' effectué.")
+        log("Create table 'tblTotalSupplies' effectué.")
         return true;
     }
     catch (err) {
@@ -37,11 +35,11 @@ module.exports.createTable = async () => {
 
 module.exports.dropTable = async () => {
     
-    const rqt = `DROP TABLE IF EXISTS tblBurns;`
+    const rqt = `DROP TABLE IF EXISTS tblTotalSupplies;`
 
     try {
         const result = await query(rqt);
-        log("Drop table 'tblBurns' effectué.")
+        log("Drop table 'tblTotalSupplies' effectué.")
         return true;
     }
     catch (err) {
@@ -52,11 +50,11 @@ module.exports.dropTable = async () => {
 
 module.exports.videTable = async () => {
         
-    const rqt = `DELETE FROM tblBurns;`
+    const rqt = `DELETE FROM tblTotalSupplies;`
 
     try {
         const result = await query(rqt);
-        log("Vidage table 'tblBurns' effectué.")
+        log("Vidage table 'tblTotalSupplies' effectué.")
         return true;
     }
     catch (err) {
@@ -75,13 +73,11 @@ module.exports.testInsertInTable = async () => {
     const bW1 = false;
     const bM1 = false;
     const bY1 = false;
-    const debutUlunaAmount = 1000222333444;
-    const debutUusdAmount = 2000111222333;
-    const finUlunaAmount = 1000222333444;
-    const finUusdAmount = 2000111222333;
+    const ulunaAmount = 1000222333444;
+    const uusdAmount = 2000111222333;
 
     
-    const rqt = `INSERT INTO tblBurns VALUES (
+    const rqt = `INSERT INTO tblTotalSupplies VALUES (
         null,
         '${code}',
         '${datetimeUTC}',
@@ -91,15 +87,13 @@ module.exports.testInsertInTable = async () => {
         ${bW1},
         ${bM1},
         ${bY1},
-        ${debutUlunaAmount},
-        ${debutUusdAmount},
-        ${finUlunaAmount},
-        ${finUusdAmount}
+        ${ulunaAmount},
+        ${uusdAmount}
     );`
 
     try {
         const result = await query(rqt);
-        log("Test insert into table 'tblBurns' effectué.")
+        log("Test insert into table 'tblTotalSupplies' effectué.")
         return true;
     }
     catch (err) {
@@ -111,7 +105,7 @@ module.exports.testInsertInTable = async () => {
 
 module.exports.selectLastH1 = async () => {
         
-    const rqt = `SELECT MAX(enregNumber) FROM tblBurns WHERE bH1=TRUE;`
+    const rqt = `SELECT MAX(enregNumber) FROM tblTotalSupplies WHERE bH1=TRUE;`
 
     try {
         const [result, fields] = await query(rqt);
@@ -125,25 +119,33 @@ module.exports.selectLastH1 = async () => {
 }
 
 
-module.exports.enregistreNouvelleBougieDansTable = async (uluna, uusd) => {
+module.exports.enregistreTotalSuppliesDansTable = async (uluna, uusd) => {
 
     const maintenant = new Date();
+    const date_formatee = maintenant.toISOString().slice(0, 19).replace('T', ' ');
 
-    const code = maintenant.toISOString().replace(' ', '').replaceAll('-', '').replaceAll(':', '').replace('T', '').slice(0,12);
-    const datetimeUTC = maintenant.toISOString().slice(0, 19).replace('T', ' ');
+    const nAnnee = date_formatee.slice(0, 4);
+    const nMois = date_formatee.slice(5, 7);
+    const nJour = date_formatee.slice(8, 10);
+    const nHeure = date_formatee.slice(11, 13);
+    const nMinute = date_formatee.slice(14, 16);
+
+    const dayOfTheWeek = maintenant.getUTCDay();        // 0 for Sunday, 1 for Monday, 2 for Tuesday, and so on
+
+
+    const code = nAnnee + nMois + nJour + nHeure + nMinute;
+    const datetimeUTC = date_formatee;
     const bH1 = true;
-    const bH4 = false;
-    const bD1 = false;
-    const bW1 = false;
-    const bM1 = false;
-    const bY1 = false;
-    const debutUlunaAmount = uluna;
-    const debutUusdAmount = uusd;
-    const finUlunaAmount = 0;
-    const finUusdAmount = 0;
+    const bH4 = (nHeure === 0 || nHeure === 4 || nHeure === 8 || nHeure === 12 || nHeure === 16 || nHeure === 20);
+    const bD1 = nHeure === 0;
+    const bW1 = (dayOfTheWeek === 1 && nHeure === 0);       // Lundi à Oh...
+    const bM1 = (nJour === 1 && nHeure === 0);
+    const bY1 = (nMois === 1 && nJour === 1 && nHeure === 0);
+    const ulunaAmount = uluna;
+    const uusdAmount = uusd;
 
     
-    const rqt = `INSERT INTO tblBurns VALUES (
+    const rqt = `INSERT INTO tblTotalSupplies VALUES (
         null,
         '${code}',
         '${datetimeUTC}',
@@ -153,15 +155,13 @@ module.exports.enregistreNouvelleBougieDansTable = async (uluna, uusd) => {
         ${bW1},
         ${bM1},
         ${bY1},
-        ${debutUlunaAmount},
-        ${debutUusdAmount},
-        ${finUlunaAmount},
-        ${finUusdAmount}
+        ${ulunaAmount},
+        ${uusdAmount}
     );`
 
     try {
         const result = await query(rqt);
-        log("Insert into table 'tblBurns' réussi.")
+        log("Insert into table 'tblTotalSupplies' réussi.")
         return true;
     }
     catch (err) {

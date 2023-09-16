@@ -1,6 +1,6 @@
 const { getTotalSupplies } = require("./getTotalSupplies");
 const { log } = require("./log");
-const { dropTable, createTable, videTable, testInsertInTable, selectLastH1, enregistreNouvelleBougieDansTable } = require("./operations_sur_table");
+const { dropTable, createTable, videTable, testInsertInTable, enregistreTotalSuppliesDansTable } = require("./operations_sur_table");
 
 
 module.exports.initialise = async () => {
@@ -38,20 +38,14 @@ module.exports.taches = async () => {
 
     log("Cron call")
 
-    const lastH1 = await selectLastH1();
-
-    if(lastH1 === null) {
-        const rawTotalSupplies = await getTotalSupplies();
-        if(rawTotalSupplies['erreur']) {
-            log("ERROR", rawTotalSupplies['erreur'])
-        } else {
-            const retourEnregNouvelleBougie = enregistreNouvelleBougieDansTable(rawTotalSupplies.uluna, rawTotalSupplies.uusd);
-            if(retourEnregNouvelleBougie['erreur']) {
-                log("ERROR", retourEnregNouvelleBougie['erreur'])
-            }
-        }
+    const rawTotalSupplies = await getTotalSupplies();
+    if(rawTotalSupplies['erreur']) {
+        log("ERROR", rawTotalSupplies['erreur'])
     } else {
-        log("lastH1 =", lastH1)
+        const retourEnregNouvelleBougie = enregistreTotalSuppliesDansTable(rawTotalSupplies.uluna, rawTotalSupplies.uusd);
+        if(retourEnregNouvelleBougie['erreur']) {
+            log("ERROR", retourEnregNouvelleBougie['erreur'])
+        }
     }
 
 
