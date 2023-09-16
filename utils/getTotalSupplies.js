@@ -40,4 +40,8 @@ module.exports.getTotalSupplies = async () => {
 
     } else
         return { "erreur": "Failed to fetch [total supply] ..." }
+
+
+    // Et renvoi des données
+    return tblRetour;
 };
