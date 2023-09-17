@@ -1,6 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import { routesRacine } from './routes/routes.racine.js';
+import { routesTotalSupplies } from './routes/routes.totalsupplies.js';
 
 export const serveur = () => {
 
@@ -12,11 +13,11 @@ export const serveur = () => {
 
     // Routes
     app.use('/', routesRacine)
-    // app.use('/api/utilisateurs', routesUtilisateur)
-    // app.use('/api/listes', routesListes)
+    app.use('/api/totalsupplies', routesTotalSupplies)
 
     // Lancement sur le port "process.env.PORT"
     app.listen(process.env.PORT, () => {
         console.log(`Serveur NodeJS démarré (port ${process.env.PORT})`)
     })
+    
 }

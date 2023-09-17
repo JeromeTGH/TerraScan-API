@@ -1,8 +1,8 @@
 import { myquery } from "../../utils/bdd.js";
 
 
-// Retourne un test racine
-export const getRoot = async (req, res) => {
+// Retourne la totalité de la table des "total supplies"
+export const getAll = async (req, res) => {
     
     const result = await myquery('SELECT * FROM tblTotalSupplies');
 
