@@ -11,12 +11,11 @@ export const cronjobs = () => {
             mylog("[ERREUR]", res.erreur)
             return;
         } else {
-            mylog(res);
+            cron.schedule('*/10 * * * * *', () => {
+                enregistreTotalSuppliesDansBDD();
+            })
         }
 
-        // cron.schedule('*/10 * * * * *', () => {
-        //     enregistreTotalSuppliesDansBDD();
-        // })
 
     })
 

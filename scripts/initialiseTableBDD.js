@@ -1,6 +1,6 @@
 
 import { mylog } from '../utils/mylog.js';
-import { dropTable, createTable, videTable, testInsertInTable } from '../utils/operations_sur_table.js';
+import { dropTable, createTable, videTable, testInsertInTable, selectLastH1 } from '../utils/operations_sur_table.js';
 
 
 export const initialiseTableBDD = async () => {
@@ -15,7 +15,6 @@ export const initialiseTableBDD = async () => {
         return ret2;
     }    
 
-
     // const ret3 = await videTable();
     // if(ret3.erreur) {
     //     return ret3;
@@ -24,6 +23,11 @@ export const initialiseTableBDD = async () => {
     // const ret4 = await testInsertInTable();
     // if(ret4.erreur) {
     //     return ret4;
+    // }
+
+    // const ret5 = await selectLastH1();
+    // if(ret5.erreur) {
+    //     return ret5;
     // }
     
     return {}

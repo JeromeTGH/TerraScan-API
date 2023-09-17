@@ -6,7 +6,7 @@ export const createTable = async () => {
 
 //datetimeUTC DATETIME,
 
-    const rqt = `CREAoooTE TABLE IF NOT EXISTS tblTotalSupplies (
+    const rqt = `CREATE TABLE IF NOT EXISTS tblTotalSupplies (
                     enregNumber INT AUTO_INCREMENT PRIMARY KEY,
                     code VARCHAR(12),
                     datetimeUTC DATETIME,
@@ -36,13 +36,12 @@ export const dropTable = async () => {
     
     const rqt = `DROP TABLE IF EXISTS tblTotalSupplies;`
 
-    try {
-        const result = await myquery(rqt);
+    const result = await myquery(rqt);
+    if(result.erreur) {
+        return { "erreur": "Failed to drop table ..." }
+    } else {
         mylog("Drop table 'tblTotalSupplies' effectué.")
         return true;
-    }
-    catch (err) {
-        return { "erreur": "Failed to drop table ..." }
     }
     
 }
@@ -51,13 +50,12 @@ export const videTable = async () => {
         
     const rqt = `DELETE FROM tblTotalSupplies;`
 
-    try {
-        const result = await myquery(rqt);
+    const result = await myquery(rqt);
+    if(result.erreur) {
+        return { "erreur": "Failed to empty table ..." }
+    } else {
         mylog("Vidage table 'tblTotalSupplies' effectué.")
         return true;
-    }
-    catch (err) {
-        return { "erreur": "Failed to empty table ..." }
     }
 
 }
@@ -90,14 +88,15 @@ export const testInsertInTable = async () => {
         ${uusdAmount}
     );`
 
-    try {
-        const result = await myquery(rqt);
+
+    const result = await myquery(rqt);
+    if(result.erreur) {
+        return { "erreur": "Failed to test insertion into table ..." }
+    } else {
         mylog("Test insert into table 'tblTotalSupplies' effectué.")
         return true;
     }
-    catch (err) {
-        return { "erreur": "Failed to test insertion into table ..." }
-    }
+
 
 }
 
@@ -106,13 +105,12 @@ export const selectLastH1 = async () => {
         
     const rqt = `SELECT MAX(enregNumber) FROM tblTotalSupplies WHERE bH1=TRUE;`
 
-    try {
-        const [result, fields] = await myquery(rqt);
-        // console.log(result[0]['MAX(enregNumber)'])
-        return result[0]['MAX(enregNumber)'];       // = null si aucun champ trouvé
-    }
-    catch (err) {
-        return { "erreur": "Failed to empty table ..." }
+    const result = await myquery(rqt);
+    if(result.erreur) {
+        return { "erreur": "Failed to select last H1 in table ..." }
+    } else {
+        mylog("Last H1 =", result[0]['MAX(enregNumber)'])
+        return result[0]['MAX(enregNumber)'];               // = null si aucun champ trouvé
     }
 
 }
@@ -158,13 +156,14 @@ export const enregistreTotalSuppliesDansTable = async (uluna, uusd) => {
         ${uusdAmount}
     );`
 
-    try {
-        const result = await myquery(rqt);
+
+    const result = await myquery(rqt);
+    if(result.erreur) {
+        return { "erreur": "Failed to test insertion into table ..." }
+    } else {
         mylog("Insert into table 'tblTotalSupplies' réussi.")
         return true;
     }
-    catch (err) {
-        return { "erreur": "Failed to test insertion into table ..." }
-    }
+
 
 }
