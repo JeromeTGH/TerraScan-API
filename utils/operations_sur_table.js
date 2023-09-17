@@ -1,12 +1,12 @@
 
-const { query } = require('./bdd');
-const { log } = require('./log');
+import { myquery } from './bdd.js';
+import { mylog } from './mylog.js';
 
-module.exports.createTable = async () => {
+export const createTable = async () => {
 
 //datetimeUTC DATETIME,
 
-    const rqt = `CREATE TABLE IF NOT EXISTS tblTotalSupplies (
+    const rqt = `CREAoooTE TABLE IF NOT EXISTS tblTotalSupplies (
                     enregNumber INT AUTO_INCREMENT PRIMARY KEY,
                     code VARCHAR(12),
                     datetimeUTC DATETIME,
@@ -22,24 +22,23 @@ module.exports.createTable = async () => {
     // code example : 202309161702 (en fait : YYYYMMDDHHMM)
     // datetimeUTC example : 2023-09-16T17:02:33.169Z
 
-    try {
-        const result = await query(rqt);
-        log("Create table 'tblTotalSupplies' effectué.")
-        return true;
-    }
-    catch (err) {
+    const result = await myquery(rqt);
+    if(result.erreur) {
         return { "erreur": "Failed to create table ..." }
+    } else {
+        mylog("Create table 'tblTotalSupplies' effectué.")
+        return true;
     }
 
 }
 
-module.exports.dropTable = async () => {
+export const dropTable = async () => {
     
     const rqt = `DROP TABLE IF EXISTS tblTotalSupplies;`
 
     try {
-        const result = await query(rqt);
-        log("Drop table 'tblTotalSupplies' effectué.")
+        const result = await myquery(rqt);
+        mylog("Drop table 'tblTotalSupplies' effectué.")
         return true;
     }
     catch (err) {
@@ -48,13 +47,13 @@ module.exports.dropTable = async () => {
     
 }
 
-module.exports.videTable = async () => {
+export const videTable = async () => {
         
     const rqt = `DELETE FROM tblTotalSupplies;`
 
     try {
-        const result = await query(rqt);
-        log("Vidage table 'tblTotalSupplies' effectué.")
+        const result = await myquery(rqt);
+        mylog("Vidage table 'tblTotalSupplies' effectué.")
         return true;
     }
     catch (err) {
@@ -63,7 +62,7 @@ module.exports.videTable = async () => {
 
 }
 
-module.exports.testInsertInTable = async () => {
+export const testInsertInTable = async () => {
 
     const code = 'AAAAMMDDHHMM';
     const datetimeUTC = 'AAAA-MM-DDTHH:MM:SSZ';
@@ -92,8 +91,8 @@ module.exports.testInsertInTable = async () => {
     );`
 
     try {
-        const result = await query(rqt);
-        log("Test insert into table 'tblTotalSupplies' effectué.")
+        const result = await myquery(rqt);
+        mylog("Test insert into table 'tblTotalSupplies' effectué.")
         return true;
     }
     catch (err) {
@@ -103,12 +102,12 @@ module.exports.testInsertInTable = async () => {
 }
 
 
-module.exports.selectLastH1 = async () => {
+export const selectLastH1 = async () => {
         
     const rqt = `SELECT MAX(enregNumber) FROM tblTotalSupplies WHERE bH1=TRUE;`
 
     try {
-        const [result, fields] = await query(rqt);
+        const [result, fields] = await myquery(rqt);
         // console.log(result[0]['MAX(enregNumber)'])
         return result[0]['MAX(enregNumber)'];       // = null si aucun champ trouvé
     }
@@ -119,7 +118,7 @@ module.exports.selectLastH1 = async () => {
 }
 
 
-module.exports.enregistreTotalSuppliesDansTable = async (uluna, uusd) => {
+export const enregistreTotalSuppliesDansTable = async (uluna, uusd) => {
 
     const maintenant = new Date();
     const date_formatee = maintenant.toISOString().slice(0, 19).replace('T', ' ');
@@ -160,8 +159,8 @@ module.exports.enregistreTotalSuppliesDansTable = async (uluna, uusd) => {
     );`
 
     try {
-        const result = await query(rqt);
-        log("Insert into table 'tblTotalSupplies' réussi.")
+        const result = await myquery(rqt);
+        mylog("Insert into table 'tblTotalSupplies' réussi.")
         return true;
     }
     catch (err) {

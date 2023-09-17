@@ -1,4 +1,5 @@
 import mysqlPromise from "mysql2/promise.js";
+import { mylog } from "./mylog.js";
 
 
 export const myquery = async (sql) => {
@@ -18,11 +19,11 @@ export const myquery = async (sql) => {
     }
     catch (err) {
         if(err.message) {
-            console.log('[BDD ERROR]', err.message);
-            return { erreur : err.message};
+            mylog('[BDD ERROR]', err.message);
+            return { erreur : err.message };
         } else {
-            console.log('[BDD ERROR]', err)
-            return { erreur : err};
+            mylog('[BDD ERROR]', err)
+            return { erreur : err };
         }
     }
 };

@@ -1,13 +1,12 @@
 
-const Axios = require('axios');
-const endpoint = 'https://terra-classic-lcd.publicnode.com';
+import Axios from 'axios';
 
-module.exports.getTotalSupplies = async () => {
+export const getTotalSupplies = async () => {
 
     const path = '/cosmos/bank/v1beta1/supply';
 
     const axios = Axios.create({
-        baseURL: endpoint,
+        baseURL: process.env.LCD_ENDPOINT,
         headers: {'Accept': 'application/json'},
         timeout: 90000      // valeur en ms (soit 90 secondes de timeout, ici)
     })
@@ -28,18 +27,18 @@ module.exports.getTotalSupplies = async () => {
 
         const idxLunc = rawTotalSupplies.data.supply.findIndex(element => element.denom === 'uluna');
         if(idxLunc === -1)
-            return { "erreur": "Failed to find LUNC supply ..." }
+            return { erreur : "Failed to find LUNC supply ..." }
         else
             tblRetour.uluna = parseInt(rawTotalSupplies.data.supply[idxLunc].amount / 1000000)
 
         const idxUstc = rawTotalSupplies.data.supply.findIndex(element => element.denom === 'uusd');
         if(idxUstc === -1)
-            return { "erreur": "Failed to find USTC supply ..." }
+            return { erreur : "Failed to find USTC supply ..." }
         else
             tblRetour.uusd = parseInt(rawTotalSupplies.data.supply[idxUstc].amount / 1000000)
 
     } else
-        return { "erreur": "Failed to fetch [total supply] ..." }
+        return { erreur : "Failed to fetch [total supply] ..." }
 
 
     // Et renvoi des données
