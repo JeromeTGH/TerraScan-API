@@ -17,7 +17,7 @@ export const serveur = () => {
 
     // Lancement sur le port "process.env.PORT"
     app.listen(process.env.PORT, () => {
-        console.log(`Serveur NodeJS démarré (port ${process.env.PORT})`)
+        console.log(`Serveur NodeJS démarré, sur le port ${process.env.PORT}.`)
     })
     
 }

@@ -1,5 +1,5 @@
 
-import { cronjobs } from "./cronjobs/cronjobs.js";
+import { cronjobs } from "./cronjobs/cron.js";
 import { env } from "./env.js";
 import { serveur } from "./serveur/serveur.js";
 

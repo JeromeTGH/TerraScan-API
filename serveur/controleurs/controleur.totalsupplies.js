@@ -1,14 +1,13 @@
-import { myquery } from "../../utils/bdd.js";
+import { bdd } from "../../bdd/bdd.js";
 
 
-// Retourne la totalité de la table des "total supplies"
-export const getAll = async (req, res) => {
+// Retourne des "total supplies" précédemment enregistrées
+export const getPastValues = async (req, res) => {
     
-    const result = await myquery('SELECT * FROM tblTotalSupplies');
-
-    if(result.erreur)
-        res.status(500).json(result.erreur)
+    const rawPastValues = await bdd.totalsupplies.getPastValues();
+    if(rawPastValues.erreur)
+        res.status(500).json(rawPastValues.erreur)
     else
-        res.status(200).json(JSON.stringify(result))
+        res.status(200).json(JSON.stringify(rawPastValues))
 
 }
