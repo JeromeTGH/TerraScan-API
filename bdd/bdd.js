@@ -14,7 +14,8 @@ export const myquery = async (sql) => {
         database: process.env.DB_BDDNAME,
         user: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
-        port: process.env.DB_PORT
+        port: process.env.DB_PORT,
+        timezone: 'Z'
     };
 
     try {

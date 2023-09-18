@@ -5,6 +5,7 @@ import { bdd } from "../../bdd/bdd.js";
 export const getPastValues = async (req, res) => {
     
     const rawPastValues = await bdd.totalsupplies.getPastValues();
+    console.log(rawPastValues)
     if(rawPastValues.erreur)
         res.status(500).json(rawPastValues.erreur)
     else

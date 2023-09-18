@@ -27,8 +27,44 @@ export const totalsupplies = {
                         uusdAmount BIGINT
                     );`
         // code example : 202309161702 (en fait : YYYYMMDDHHMM)
-        // datetimeUTC example : 2023-09-16T17:02:33.169Z
+        return await myquery(rqt);
+    },
+
+    async cleanTable() {
+        const rqt = `DELETE FROM tblTotalSupplies;`
+        return await myquery(rqt);
+    },
+
+    async testInsertInTable() {
+        const maintenant = new Date();
+
+        const code = 'AAAAMMDDHHMM';
+        const datetimeUTC = maintenant.toISOString().slice(0, 19).replace('T', ' ');
+        const bH1 = true;
+        const bH4 = false;
+        const bD1 = false;
+        const bW1 = false;
+        const bM1 = false;
+        const bY1 = false;
+        const ulunaAmount = 1000222333444;
+        const uusdAmount = 2000111222333;
+        
+        const rqt = `INSERT INTO tblTotalSupplies VALUES (
+            null,
+            '${code}',
+            '${datetimeUTC}',
+            ${bH1},
+            ${bH4},
+            ${bD1},
+            ${bW1},
+            ${bM1},
+            ${bY1},
+            ${ulunaAmount},
+            ${uusdAmount}
+        );`
+
         return await myquery(rqt);
     }
+    
 
 }

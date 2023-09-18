@@ -1,6 +1,6 @@
 
 import { cronjobs } from "./cronjobs/cron.js";
-import { env } from "./env.js";
+import { env } from "./utils/env.js";
 import { serveur } from "./serveur/serveur.js";
 
 // Afficher le message d'invite
