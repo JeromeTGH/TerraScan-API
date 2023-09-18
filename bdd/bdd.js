@@ -1,5 +1,5 @@
 import mysqlPromise from "mysql2/promise.js";
-import { totalsupplies } from "./extensions/bdd.totalsupplies.js"
+import { totalsupplies } from "./modules/bdd.totalsupplies.js"
 import { mylog } from "../utils/mylog.js";
 
 export const bdd = {

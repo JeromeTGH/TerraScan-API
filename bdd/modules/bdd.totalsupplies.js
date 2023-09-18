@@ -41,15 +41,15 @@ export const totalsupplies = {
         const code = 'AAAAMMDDHHMM';
         const datetimeUTC = maintenant.toISOString().slice(0, 19).replace('T', ' ');
         const bH1 = true;
-        const bH4 = false;
-        const bD1 = false;
+        let bH4 = false;
+        let bD1 = false;
         const bW1 = false;
         const bM1 = false;
         const bY1 = false;
         const ulunaAmount = 1000222333444;
         const uusdAmount = 2000111222333;
         
-        const rqt = `INSERT INTO tblTotalSupplies VALUES (
+        let rqt = `INSERT INTO tblTotalSupplies VALUES (
             null,
             '${code}',
             '${datetimeUTC}',
@@ -62,6 +62,73 @@ export const totalsupplies = {
             ${ulunaAmount},
             ${uusdAmount}
         );`
+        await myquery(rqt);
+        await myquery(rqt);
+
+        bH4 = true;
+        rqt = `INSERT INTO tblTotalSupplies VALUES (
+            null,
+            '${code}',
+            '${datetimeUTC}',
+            ${bH1},
+            ${bH4},
+            ${bD1},
+            ${bW1},
+            ${bM1},
+            ${bY1},
+            ${ulunaAmount},
+            ${uusdAmount}
+        );`
+        await myquery(rqt);
+
+        bH4 = false;
+        rqt = `INSERT INTO tblTotalSupplies VALUES (
+            null,
+            '${code}',
+            '${datetimeUTC}',
+            ${bH1},
+            ${bH4},
+            ${bD1},
+            ${bW1},
+            ${bM1},
+            ${bY1},
+            ${ulunaAmount},
+            ${uusdAmount}
+        );`
+        await myquery(rqt);
+        await myquery(rqt);
+
+        bD1 = true;
+        rqt = `INSERT INTO tblTotalSupplies VALUES (
+            null,
+            '${code}',
+            '${datetimeUTC}',
+            ${bH1},
+            ${bH4},
+            ${bD1},
+            ${bW1},
+            ${bM1},
+            ${bY1},
+            ${ulunaAmount},
+            ${uusdAmount}
+        );`
+        await myquery(rqt);
+
+        bD1 = false;
+        rqt = `INSERT INTO tblTotalSupplies VALUES (
+            null,
+            '${code}',
+            '${datetimeUTC}',
+            ${bH1},
+            ${bH4},
+            ${bD1},
+            ${bW1},
+            ${bM1},
+            ${bY1},
+            ${ulunaAmount},
+            ${uusdAmount}
+        );`
+        await myquery(rqt);
 
         return await myquery(rqt);
     },
@@ -83,16 +150,14 @@ export const totalsupplies = {
         const nMinute = date_formatee.slice(14, 16);
     
         const dayOfTheWeek = maintenant.getUTCDay();        // 0 for Sunday, 1 for Monday, 2 for Tuesday, and so on
-    
-    
         const code = nAnnee + nMois + nJour + nHeure + nMinute;
         const datetimeUTC = date_formatee;
         const bH1 = true;
-        const bH4 = (nHeure === 0 || nHeure === 4 || nHeure === 8 || nHeure === 12 || nHeure === 16 || nHeure === 20);
-        const bD1 = nHeure === 0;
-        const bW1 = (dayOfTheWeek === 1 && nHeure === 0);       // Lundi à Oh...
-        const bM1 = (nJour === 1 && nHeure === 0);
-        const bY1 = (nMois === 1 && nJour === 1 && nHeure === 0);
+        const bH4 = (nHeure === "00" || nHeure === "04" || nHeure === "08" || nHeure === "12" || nHeure === "16" || nHeure === "20");
+        const bD1 = nHeure === "00";
+        const bW1 = (dayOfTheWeek === 1 && nHeure === "00");       // Lundi à Oh...
+        const bM1 = (nJour === "01" && nHeure === "00");
+        const bY1 = (nMois === "01" && nJour === "01" && nHeure === "00");
         const ulunaAmount = uluna;
         const uusdAmount = uusd;
     
@@ -110,7 +175,7 @@ export const totalsupplies = {
             ${ulunaAmount},
             ${uusdAmount}
         );`
-    
+
         return await myquery(rqt);
     }
     

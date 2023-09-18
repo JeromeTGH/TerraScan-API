@@ -1,5 +1,4 @@
 
-import { cronjobs } from "./cronjobs/cron.js";
 import { env } from "./utils/env.js";
 import { serveur } from "./serveur/serveur.js";
 
@@ -12,5 +11,4 @@ console.log("");
 
 
 env();          // Récupération des variables d'environnement
-cronjobs();     // Lance le "pseudo démon" cron
-serveur();      // Lance le serveur
+serveur();      // Démarrage du serveur
