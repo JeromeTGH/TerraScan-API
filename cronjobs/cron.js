@@ -1,11 +1,15 @@
-import cron from 'node-cron';
-import { mylog } from '../utils/mylog.js';
 import { initialiseTotalSuppliesTbl } from './jobs/cron.initialiseTotalSuppliesTbl.js';
+import { writeActualSuppliesInTbl } from './jobs/cron.writeActualSuppliesInTbl.js';
 
 export const cronjobs = async () => {
 
-    await initialiseTotalSuppliesTbl();
+    // Préparation / fonctiosn de test
+    const initTblSupplies = await initialiseTotalSuppliesTbl();
+    if(initTblSupplies.erreur)
+        return;
 
+    // Jobs
+    writeActualSuppliesInTbl();
 
     // initialiseTableBDD().then((res) => {
 
