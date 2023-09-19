@@ -1,0 +1,5 @@
+[19/09/2023 20:35:56] GET '/api/totalsupplies/saveDataFromLCD'
+[19/09/2023 20:36:01] GET '/api/totalsupplies/saveDataFromLCD'
+[19/09/2023 20:36:05] GET '/api/totalsupplies/saveDataFromLCD'
+[19/09/2023 20:36:06] ERROR = Duplicate entry '202309191836' for key 'code'
+[19/09/2023 20:36:25] GET '/api/totalsupplies/getPastValues'
