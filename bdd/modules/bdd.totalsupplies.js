@@ -15,7 +15,7 @@ export const totalsupplies = {
     async createTable() {    
         const rqt = `CREATE TABLE IF NOT EXISTS tblTotalSupplies (
                         enregNumber INT AUTO_INCREMENT PRIMARY KEY,
-                        code VARCHAR(12),
+                        code VARCHAR(12) UNIQUE,
                         datetimeUTC DATETIME,
                         bH1 BOOLEAN NOT NULL DEFAULT TRUE,
                         bH4 BOOLEAN NOT NULL DEFAULT FALSE,

@@ -1,6 +1,5 @@
 import mysqlPromise from "mysql2/promise.js";
 import { totalsupplies } from "./modules/bdd.totalsupplies.js"
-import { mylog } from "../utils/mylog.js";
 
 export const bdd = {
     totalsupplies: totalsupplies
@@ -25,10 +24,8 @@ export const myquery = async (sql) => {
     }
     catch (err) {
         if(err.message) {
-            mylog('[BDD ERROR]', err.message);
             return { erreur : err.message };
         } else {
-            mylog('[BDD ERROR]', err)
             return { erreur : err };
         }
     }
