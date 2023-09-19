@@ -11,7 +11,8 @@ export const serveur = () => {
     const app = express();
 
     // Middlewares
-    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));    // Parse application/x-www-form-urlencoded
+    app.use(bodyParser.json());                             // Parse application/json
 
     // Routes
     app.use('/', routesRacine)

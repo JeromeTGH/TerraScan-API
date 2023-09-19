@@ -2,13 +2,13 @@ import { myquery } from "../bdd.js";
 
 export const totalsupplies = {
 
-    async getPastValues() {
-        const rqt = `SELECT * FROM tblTotalSupplies`
+    async getPastValues(limit, timeunit) {
+        const rqt = `SELECT * FROM tblTotalSupplies WHERE b${timeunit}=TRUE ORDER BY enregNumber DESC LIMIT ${limit}`;
         return await myquery(rqt);
     },
 
     async dropTable() {
-        const rqt = `DROP TABLE IF EXISTS tblTotalSupplies;`
+        const rqt = `DROP TABLE IF EXISTS tblTotalSupplies`;
         return await myquery(rqt);
     },
 
@@ -31,7 +31,7 @@ export const totalsupplies = {
     },
 
     async cleanTable() {
-        const rqt = `DELETE FROM tblTotalSupplies;`
+        const rqt = `DELETE FROM tblTotalSupplies`;
         return await myquery(rqt);
     },
 
@@ -61,7 +61,7 @@ export const totalsupplies = {
             ${bY1},
             ${ulunaAmount},
             ${uusdAmount}
-        );`
+        )`;
         await myquery(rqt);
         await myquery(rqt);
 
@@ -78,7 +78,7 @@ export const totalsupplies = {
             ${bY1},
             ${ulunaAmount},
             ${uusdAmount}
-        );`
+        )`;
         await myquery(rqt);
 
         bH4 = false;
@@ -94,7 +94,7 @@ export const totalsupplies = {
             ${bY1},
             ${ulunaAmount},
             ${uusdAmount}
-        );`
+        )`;
         await myquery(rqt);
         await myquery(rqt);
 
@@ -111,7 +111,7 @@ export const totalsupplies = {
             ${bY1},
             ${ulunaAmount},
             ${uusdAmount}
-        );`
+        )`;
         await myquery(rqt);
 
         bD1 = false;
@@ -127,14 +127,14 @@ export const totalsupplies = {
             ${bY1},
             ${ulunaAmount},
             ${uusdAmount}
-        );`
+        )`;
         await myquery(rqt);
 
         return await myquery(rqt);
     },
 
     async selectLastH1() {
-        const rqt = `SELECT MAX(enregNumber) FROM tblTotalSupplies WHERE bH1=TRUE;`
+        const rqt = `SELECT MAX(enregNumber) FROM tblTotalSupplies WHERE bH1=TRUE`;
         return await myquery(rqt);
     },
 
@@ -174,7 +174,7 @@ export const totalsupplies = {
             ${bY1},
             ${ulunaAmount},
             ${uusdAmount}
-        );`
+        )`;
 
         return await myquery(rqt);
     }
