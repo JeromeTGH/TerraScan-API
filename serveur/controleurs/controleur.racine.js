@@ -1,3 +1,4 @@
+import { getslog } from "../../logs/logs.js";
 
 // Retourne un test racine
 export const getRoot = async (req, res) => {

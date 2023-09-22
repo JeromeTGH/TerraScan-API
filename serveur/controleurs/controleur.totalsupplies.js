@@ -25,7 +25,7 @@ export const getPastValues = async (req, res) => {
         res.status(500).json(rawPastValues.erreur);
     }
     else
-        res.status(200).json(JSON.stringify(rawPastValues));
+        res.status(200).json(rawPastValues);
 
 }
 
@@ -61,7 +61,7 @@ export const saveDataFromLCD = async (req, res) => {
                 res.status(500).json(retourEnregistrementDonnees.erreur);
             } else {
                 mylog("Data saved !");
-                res.status(200).json({ "result" : "Data saved !" });
+                res.status(200).json({ result : "Data saved !" });
             }
             break;
         }
