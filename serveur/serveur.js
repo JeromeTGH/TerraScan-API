@@ -20,11 +20,7 @@ export const serveur = () => {
     app.use('/', routesRacine)
     app.use('/api/totalsupplies', routesTotalSupplies)
 
-    // // Lancement sur le port "process.env.PORT"
-    // app.listen(process.env.PORT, () => {
-    //     mylog(`Serveur NodeJS démarré, sur le port ${process.env.PORT}.`)
-    // })
-
+    // Lancement sur le port "process.env.PORT", en HTTPS
     https
         .createServer(
             {
