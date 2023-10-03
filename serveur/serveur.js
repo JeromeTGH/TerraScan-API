@@ -1,13 +1,10 @@
-import bodyParser from 'body-parser';
-import express from 'express';
-import fs from 'fs';
-import https from 'https';
-import { routesRacine } from './routes/routes.racine.js';
-import { routesTotalSupplies } from './routes/routes.totalsupplies.js';
-import { mylog } from '../utils/mylog.js';
+const bodyParser = require('body-parser');
+const express = require('express');
+const routesRacine = require('./routes/routes.racine.js');
+const routesTotalSupplies = require('./routes/routes.totalsupplies.js');
 
 
-export const serveur = () => {
+const start = () => {
 
     // Création du serveur
     const app = express();
@@ -21,17 +18,10 @@ export const serveur = () => {
     app.use('/api/totalsupplies', routesTotalSupplies)
 
     // Lancement sur le port "process.env.PORT", en HTTPS
-    https
-        .createServer(
-            {
-                key: fs.readFileSync("./config/key.pem"),
-                cert: fs.readFileSync("./config/cert.pem"),
-            },
-            app
-        )
-        .listen(process.env.PORT, () => {
-            mylog(`Serveur NodeJS démarré, sur le port ${process.env.PORT}.`)
-        })
-
+    app.listen(process.env.PORT, () => {
+        console.log(`Serveur NodeJS démarré, sur le port ${process.env.PORT}.`)
+    })
     
 }
+
+module.exports = { start }

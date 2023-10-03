@@ -1,8 +1,8 @@
-import express from 'express';
-import { getPastValues, saveDataFromLCD } from '../controleurs/controleur.totalsupplies.js';
+const express = require('express');
+const controleurTotalSupplies = require('../controleurs/controleur.totalsupplies.js');
 
 const routesTotalSupplies = express.Router()
-routesTotalSupplies.get('/getPastValues', getPastValues)
-routesTotalSupplies.get('/saveDataFromLCD', saveDataFromLCD)
+routesTotalSupplies.get('/getPastValues', controleurTotalSupplies.getPastValues)
+// routesTotalSupplies.get('/saveDataFromLCD', controleurTotalSupplies.saveDataFromLCD)
 
-export { routesTotalSupplies }
+module.exports = routesTotalSupplies

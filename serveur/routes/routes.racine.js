@@ -1,7 +1,7 @@
-import express from 'express';
-import { getRoot } from '../controleurs/controleur.racine.js';
+const express = require('express');
+const controleurRacine = require('../controleurs/controleur.racine.js');
 
 const routesRacine = express.Router()
-routesRacine.get('/', getRoot)
+routesRacine.get('/', controleurRacine.getRoot)
 
-export { routesRacine }
+module.exports = routesRacine

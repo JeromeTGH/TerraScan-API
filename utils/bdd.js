@@ -1,12 +1,6 @@
-import mysqlPromise from "mysql2/promise.js";
-import { totalsupplies } from "./modules/bdd.totalsupplies.js"
+const mysqlPromise = require('mysql2/promise.js');
 
-export const bdd = {
-    totalsupplies: totalsupplies
-}
-
-
-export const myquery = async (sql) => {
+const myquery = async (sql) => {
 
     const config = {
         host: process.env.DB_HOSTNAME,
@@ -30,3 +24,11 @@ export const myquery = async (sql) => {
         }
     }
 };
+
+const getPastValues = async(limit, timeunit) => {
+    const rqt = `SELECT * FROM tblTotalSupplies2 WHERE b${timeunit}=TRUE ORDER BY enregNumber DESC LIMIT ${limit}`;
+    return await myquery(rqt);
+}
+
+
+module.exports = { getPastValues }
