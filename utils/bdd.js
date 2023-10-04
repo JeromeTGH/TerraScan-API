@@ -1,5 +1,7 @@
 const mysqlPromise = require('mysql2/promise.js');
 
+
+// Interne : permet de faire des requêtes SQL
 const myquery = async (sql) => {
 
     const config = {
@@ -25,6 +27,8 @@ const myquery = async (sql) => {
     }
 };
 
+
+// Externe : permet de récupérer des X dernières valeurs, avec la plus récente en premier, triée par unité de temps souhaité (H1, H4, D1, ...)
 const getPastValues = async(limit, timeunit) => {
     const rqt = `SELECT * FROM tblTotalSupplies2 WHERE b${timeunit}=TRUE ORDER BY enregNumber DESC LIMIT ${limit}`;
     return await myquery(rqt);
