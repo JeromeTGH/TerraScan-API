@@ -30,9 +30,14 @@ const myquery = async (sql) => {
 
 // Externe : permet de récupérer des X dernières valeurs, avec la plus récente en premier, triée par unité de temps souhaité (H1, H4, D1, ...)
 const getPastValues = async(limit, timeunit) => {
+    const rqt = `SELECT * FROM tblTotalSupplies WHERE b${timeunit}=TRUE ORDER BY enregNumber DESC LIMIT ${limit}`;
+    return await myquery(rqt);
+}
+
+// Externe : permet de récupérer des X dernières valeurs, avec la plus récente en premier, triée par unité de temps souhaité (H1, H4, D1, ...)
+const getPastValues2 = async(limit, timeunit) => {
     const rqt = `SELECT * FROM tblTotalSupplies2 WHERE b${timeunit}=TRUE ORDER BY enregNumber DESC LIMIT ${limit}`;
     return await myquery(rqt);
 }
 
-
-module.exports = { getPastValues }
+module.exports = { getPastValues, getPastValues2 }
