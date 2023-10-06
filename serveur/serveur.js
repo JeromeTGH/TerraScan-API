@@ -1,4 +1,3 @@
-const bodyParser = require('body-parser');
 const express = require('express');
 const routesRacine = require('./routes/routes.racine.js');
 const routesTotalSupplies = require('./routes/routes.totalsupplies.js');
@@ -10,8 +9,8 @@ const start = () => {
     const app = express();
 
     // Middlewares
-    app.use(bodyParser.urlencoded({ extended: false }));    // Parse application/x-www-form-urlencoded
-    app.use(bodyParser.json());                             // Parse application/json
+    app.use(express.json());                            // Parse application/json
+	app.use(express.urlencoded({ extended: true }));	// Parse application/x-www-form-urlencoded	
 
     // Routes
     app.use('/', routesRacine)

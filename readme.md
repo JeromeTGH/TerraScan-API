@@ -14,12 +14,6 @@ Base url : *private*
 | /api/totalsupplies/getPastValues2 | Internal (for testing) |
 
 
-## Server start commands
-
-- **npm start** : standard execution, through NodeJS (prod)
-- **npm run mon** : execution through "nodemon" (dev)
-
-
 ## License
 
 BY-NC-ND 4.0 CC License<br />
