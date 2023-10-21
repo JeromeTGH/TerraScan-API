@@ -13,7 +13,7 @@ const getPastValues = async (req, res) => {
     const setTimeunit = ['H1', 'H4', 'D1', 'W1', 'M1', 'Y1'].includes(timeunit) ? timeunit : 'H1';      // Unité de temps 'H1' par défaut
 
     // Récupération des données
-    const rawPastValues = await bdd.getPastValues(setLimit, setTimeunit);
+    const rawPastValues = await bdd.getTotalSupplies(setLimit, setTimeunit);
     if(rawPastValues.erreur) {
         res.status(500).json(rawPastValues.erreur);
     }
@@ -33,7 +33,7 @@ const getPastValues2 = async (req, res) => {
     const setTimeunit = ['H1', 'H4', 'D1', 'W1', 'M1', 'Y1'].includes(timeunit) ? timeunit : 'H1';      // Unité de temps 'H1' par défaut
 
     // Récupération des données
-    const rawPastValues = await bdd.getPastValues2(setLimit, setTimeunit);
+    const rawPastValues = await bdd.getTotalSupplies2(setLimit, setTimeunit);
     if(rawPastValues.erreur) {
         res.status(500).json(rawPastValues.erreur);
     }
