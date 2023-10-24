@@ -1,9 +1,10 @@
 const express = require('express');
 const routesRacine = require('./routes/routes.racine.js');
 const routesTotalSupplies = require('./routes/routes.totalsupplies.js');
-const routesLuncStaking = require('./routes/routes.luncstaking.js')
-const routesCommunityPool = require('./routes/routes.communitypool.js')
-const routesOraclePool = require('./routes/routes.oraclepool.js')
+const routesLuncStaking = require('./routes/routes.luncstaking.js');
+const routesCommunityPool = require('./routes/routes.communitypool.js');
+const routesOraclePool = require('./routes/routes.oraclepool.js');
+const logger = require('../utils/logger.js');
 
 const start = () => {
 
@@ -23,7 +24,7 @@ const start = () => {
 
     // Lancement sur le port "process.env.PORT", en HTTPS
     app.listen(process.env.PORT, () => {
-        console.log(`Serveur NodeJS démarré, sur le port ${process.env.PORT}.`)
+        logger.log(`Serveur NodeJS démarré, sur le port ${process.env.PORT}.`)
     })
     
 }

@@ -1,4 +1,5 @@
 const bdd = require('../../bdd/bdd.js');
+const logger = require('../../utils/logger.js');
 
 
 // Retourne l'historique de l'oracle pool, comme stocké en BDD
@@ -15,6 +16,7 @@ const getPastValues = async (req, res) => {
     // Récupération des données
     const rawPastValues = await bdd.getOraclePoolContent(setLimit, setTimeunit);
     if(rawPastValues.erreur) {
+        logger.error(rawPastValues.erreur);
         res.status(500).json(rawPastValues.erreur);
     }
     else

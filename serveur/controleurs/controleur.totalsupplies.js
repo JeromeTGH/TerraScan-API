@@ -1,4 +1,5 @@
 const bdd = require('../../bdd/bdd.js');
+const logger = require('../../utils/logger.js');
 
 
 // Retourne les "total supplies" précédemment stockées en BDD
@@ -15,6 +16,7 @@ const getPastValues = async (req, res) => {
     // Récupération des données
     const rawPastValues = await bdd.getTotalSupplies(setLimit, setTimeunit);
     if(rawPastValues.erreur) {
+        logger.error(rawPastValues.erreur);
         res.status(500).json(rawPastValues.erreur);
     }
     else
@@ -35,6 +37,7 @@ const getPastValues2 = async (req, res) => {
     // Récupération des données
     const rawPastValues = await bdd.getTotalSupplies2(setLimit, setTimeunit);
     if(rawPastValues.erreur) {
+        logger.error(rawPastValues.erreur);
         res.status(500).json(rawPastValues.erreur);
     }
     else
