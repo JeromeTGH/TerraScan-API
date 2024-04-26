@@ -1,7 +1,7 @@
 # TerraScan API
 
 An API for [TerraScan app](https://terrascan.jtapp.dev/)<br />
-GitHub : https://github.com/JeromeTGH/Terra-Scan-API
+GitHub : https://github.com/JeromeTGH/TerraScan-API
 
 ## Endpoints
 
